@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { toast } from 'sonner';
-import { cn } from '@/lib/utils';
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
-type WeatherCondition = 'sun' | 'cloud' | 'rain' | 'snow' | 'thunder';
+type WeatherCondition = "sun" | "cloud" | "rain" | "snow" | "thunder";
 
 interface CurrentWeather {
   city: string;
@@ -26,28 +26,82 @@ const mockCurrentWeather: CurrentWeather = {
   city: "北京",
   temp: 25,
   condition: "sun",
-  icon: "sun",
+  icon: "cloud-fog",
   windSpeed: 12,
   humidity: 45,
-  pressure: 1012
+  pressure: 1012,
 };
 
 const mockForecast: ForecastDay[] = [
-  { date: "周一 6/10", highTemp: 28, lowTemp: 18, condition: "sun", icon: "sun" },
-  { date: "周二 6/11", highTemp: 26, lowTemp: 19, condition: "cloud", icon: "cloud" },
-  { date: "周三 6/12", highTemp: 24, lowTemp: 17, condition: "rain", icon: "rain" },
-  { date: "周四 6/13", highTemp: 27, lowTemp: 20, condition: "sun", icon: "sun" },
-  { date: "周五 6/14", highTemp: 29, lowTemp: 21, condition: "sun", icon: "sun" },
-  { date: "周六 6/15", highTemp: 25, lowTemp: 19, condition: "cloud", icon: "cloud" },
-  { date: "周日 6/16", highTemp: 23, lowTemp: 18, condition: "rain", icon: "rain" }
+  {
+    date: "周一 6/10",
+    highTemp: 28,
+    lowTemp: 18,
+    condition: "sun",
+    icon: "sun",
+  },
+  {
+    date: "周二 6/11",
+    highTemp: 26,
+    lowTemp: 19,
+    condition: "cloud",
+    icon: "cloud",
+  },
+  {
+    date: "周三 6/12",
+    highTemp: 24,
+    lowTemp: 17,
+    condition: "rain",
+    icon: "rain",
+  },
+  {
+    date: "周四 6/13",
+    highTemp: 27,
+    lowTemp: 20,
+    condition: "sun",
+    icon: "sun",
+  },
+  {
+    date: "周五 6/14",
+    highTemp: 29,
+    lowTemp: 21,
+    condition: "sun",
+    icon: "sun",
+  },
+  {
+    date: "周六 6/15",
+    highTemp: 25,
+    lowTemp: 19,
+    condition: "cloud",
+    icon: "cloud",
+  },
+  {
+    date: "周日 6/16",
+    highTemp: 23,
+    lowTemp: 18,
+    condition: "rain",
+    icon: "rain",
+  },
 ];
 
-const cities = ["北京", "上海", "广州", "深圳", "成都", "杭州", "武汉", "西安", "南京", "重庆"];
+const cities = [
+  "北京",
+  "上海",
+  "广州",
+  "深圳",
+  "成都",
+  "杭州",
+  "武汉",
+  "西安",
+  "南京",
+  "重庆",
+];
 
 export default function Home() {
-  const [currentWeather, setCurrentWeather] = useState<CurrentWeather>(mockCurrentWeather);
+  const [currentWeather, setCurrentWeather] =
+    useState<CurrentWeather>(mockCurrentWeather);
   const [forecast, setForecast] = useState<ForecastDay[]>(mockForecast);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredCities, setFilteredCities] = useState<string[]>([]);
 
@@ -56,16 +110,16 @@ export default function Home() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          toast.success('定位成功');
+          toast.success("定位成功");
           // 这里实际应用中会调用API获取天气数据
           setCurrentWeather({
             ...mockCurrentWeather,
-            city: '当前位置'
+            city: "当前位置",
           });
         },
         (error) => {
-          toast.error('无法获取位置信息');
-          console.error('Geolocation error:', error);
+          toast.error("无法获取位置信息");
+          console.error("Geolocation error:", error);
         }
       );
     }
@@ -76,7 +130,7 @@ export default function Home() {
     setSearchQuery(query);
     if (query.length > 0) {
       setFilteredCities(
-        cities.filter(city =>
+        cities.filter((city) =>
           city.toLowerCase().includes(query.toLowerCase())
         )
       );
@@ -92,25 +146,25 @@ export default function Home() {
     // 这里实际应用中会调用API获取天气数据
     setCurrentWeather({
       ...mockCurrentWeather,
-      city
+      city,
     });
     toast.success(`已切换至${city}的天气`);
   };
 
   const getWeatherIcon = (condition: WeatherCondition) => {
     switch (condition) {
-      case 'sun':
-        return <i className="fa-solid fa-sun text-yellow-400"></i>;
-      case 'cloud':
+      case "sun":
+        return <i className="fa-solid fa-spin fa-sun text-yellow-400"></i>;
+      case "cloud":
         return <i className="fa-solid fa-cloud text-gray-400"></i>;
-      case 'rain':
+      case "rain":
         return <i className="fa-solid fa-cloud-rain text-blue-400"></i>;
-      case 'snow':
+      case "snow":
         return <i className="fa-solid fa-snowflake text-blue-100"></i>;
-      case 'thunder':
+      case "thunder":
         return <i className="fa-solid fa-bolt text-yellow-500"></i>;
       default:
-        return <i className="fa-solid fa-sun text-yellow-400"></i>;
+        return <i className="fa-solid fa-spin fa-sun text-yellow-400"></i>;
     }
   };
 
@@ -149,14 +203,20 @@ export default function Home() {
       <main className="flex-grow container mx-auto p-6">
         <div className="bg-sky-100 rounded-xl p-8 shadow-lg mb-8">
           <div className="flex flex-col items-center">
-            <h2 className="text-3xl font-semibold mb-4">{currentWeather.city}</h2>
+            <h2 className="text-3xl font-semibold mb-4">
+              {currentWeather.city}
+            </h2>
             <div className="flex items-center justify-center mb-6">
-              <div className="text-7xl font-bold mr-4">{currentWeather.temp}°</div>
+              <div className="text-7xl font-bold mr-4">
+                {currentWeather.temp}°
+              </div>
               <div className="text-6xl">
                 {getWeatherIcon(currentWeather.condition)}
               </div>
             </div>
-            <div className="text-xl capitalize mb-2">{currentWeather.condition}</div>
+            <div className="text-xl capitalize mb-2">
+              {currentWeather.condition}
+            </div>
             <div className="grid grid-cols-3 gap-4 text-center text-gray-600">
               <div>
                 <i className="fa-solid fa-wind mr-2"></i>
