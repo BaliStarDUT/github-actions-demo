@@ -6,6 +6,8 @@ All the tasks necessary for testing, building and deploying this code is already
 
 Try these:
 - export GOPROXY=https://mirrors.aliyun.com/goproxy/
+- git config --global user.email drawnkid@gmail.com
+- git config --global user.name "James"
 * `act -j test` - run the tests
 * `act` - run the the entire pipeline
 * `act -l` - view the execution graph
