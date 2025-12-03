@@ -11,4 +11,7 @@ Try these:
 * `act -j test` - run the tests
 * `act` - run the the entire pipeline
 * `act -l` - view the execution graph
-
+- git config --global http.proxy 
+- git config --global https.proxy 
+- git config --global http.proxy http://127.0.0.1:12334
+- git config --global https.proxy http://127.0.0.1:12334
