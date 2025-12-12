@@ -31,7 +31,8 @@ jobs:
         env:
           KUBECONFIG_B64: ${{ secrets.KUBECONFIG_B64 }}        
       - name: Sanity check
-        run: kubectl get pod
+        run: |
+          export KUBECONFIG="${{ env.KUBECONFIG }}" ; echo "KUBECONFIG: $KUBECONFIG" ; kubectl get pod
       - name: Setup Go environment
         uses: actions/setup-go@v5.5.0
       - run: go version

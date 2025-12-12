@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      name: build
+      name: test
       user_name: drawnkid
       password: ${{ secrets.DOCKER_TOKEN }}
 
