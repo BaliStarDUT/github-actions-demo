@@ -1,14 +1,12 @@
-FROM alpine:3.16  as production
+FROM alpine:latest
 
-LABEL org.opencontainers.image.title="Portainer" \
-  org.opencontainers.image.description="Docker container management made simple, with the world’s most popular GUI-based container management platform." \
-  org.opencontainers.image.vendor="Portainer.io" 
+LABEL org.opencontainers.image.title="Portainer" 
 
-COPY output/x.y.z_linux_amd64 /public/portainer
+WORKDIR /app
 
-WORKDIR /
+COPY output/x.y.z_linux_amd64 ./xyz
 
 EXPOSE 9000
 EXPOSE 8000
 
-ENTRYPOINT ["/portainer"]
+CMD ["./xyz"]
